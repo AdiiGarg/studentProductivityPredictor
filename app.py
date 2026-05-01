@@ -7,6 +7,7 @@ from tensorflow.keras.models import load_model
 # ==========================================================
 # PAGE CONFIG
 # ==========================================================
+
 st.set_page_config(
     page_title="Student Productivity Dashboard",
     page_icon="📊",
@@ -16,6 +17,7 @@ st.set_page_config(
 # ==========================================================
 # CUSTOM CSS
 # ==========================================================
+
 st.markdown("""
 <style>
 .main {
@@ -39,6 +41,7 @@ div[data-testid="stMetric"] {
 # ==========================================================
 # LOAD MODELS
 # ==========================================================
+
 @st.cache_resource
 def load_models():
 
@@ -78,6 +81,7 @@ poly_transform, columns
 # MODEL PERFORMANCE METRICS
 # Replace with your exact values if needed
 # ==========================================================
+
 metrics = {
     "ANN": {
         "MSE": 0.006752,
@@ -108,6 +112,7 @@ metrics = {
 # ==========================================================
 # RELIABILITY WEIGHT FUNCTION
 # ==========================================================
+
 def get_weight(m):
     return (
         m["R2"] +
@@ -120,6 +125,7 @@ def get_weight(m):
 # ==========================================================
 # HEADER
 # ==========================================================
+
 st.title("📊 Student Productivity Prediction Dashboard")
 st.markdown("### Compare 4 ML Models with Reliable Weighted Final Score")
 st.divider()
@@ -127,6 +133,7 @@ st.divider()
 # ==========================================================
 # INPUT SECTION
 # ==========================================================
+
 st.sidebar.header("📝 Enter Student Attributes")
 
 range_map = {
@@ -161,6 +168,7 @@ input_df = pd.DataFrame([input_data])[columns]
 # ==========================================================
 # PREDICT BUTTON
 # ==========================================================
+
 if st.sidebar.button("🚀 Predict Productivity"):
 
     # ------------------------------------------------------
@@ -195,6 +203,7 @@ if st.sidebar.button("🚀 Predict Productivity"):
     # ------------------------------------------------------
     # WEIGHTED FINAL SCORE (OUT OF 100)
     # ------------------------------------------------------
+    
     weighted_sum = 0
     total_weight = 0
     weights = {}
@@ -213,6 +222,7 @@ if st.sidebar.button("🚀 Predict Productivity"):
     # ======================================================
     # MODEL PREDICTIONS
     # ======================================================
+    
     st.subheader("🔮 Model Predictions (Out of 100)")
 
     c1, c2, c3, c4 = st.columns(4)
@@ -227,6 +237,7 @@ if st.sidebar.button("🚀 Predict Productivity"):
     # ======================================================
     # BAR CHART
     # ======================================================
+    
     st.subheader("📈 Prediction Comparison")
 
     chart_df = pd.DataFrame({
@@ -241,6 +252,7 @@ if st.sidebar.button("🚀 Predict Productivity"):
     # ======================================================
     # METRICS TABLE
     # ======================================================
+    
     st.subheader("📊 Model Reliability Comparison")
 
     rows = []
@@ -264,6 +276,7 @@ if st.sidebar.button("🚀 Predict Productivity"):
     # ======================================================
     # FINAL SCORE
     # ======================================================
+    
     st.subheader("🎯 Final Reliable Productivity Score")
 
     progress_value = int(final_score)
@@ -279,6 +292,7 @@ if st.sidebar.button("🚀 Predict Productivity"):
     # ======================================================
     # BEST MODEL
     # ======================================================
+    
     best_model = max(weights, key=weights.get)
 
     st.subheader("🏆 Best Performing Model")
@@ -289,6 +303,7 @@ if st.sidebar.button("🚀 Predict Productivity"):
     # ======================================================
     # INSIGHT
     # ======================================================
+    
     st.subheader("📌 Insight")
 
     if final_score >= 85:
